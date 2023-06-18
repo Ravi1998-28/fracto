@@ -3,6 +3,7 @@ const express = require("express");
 const routerNft = express.Router();
 import { auth_user } from "../middlerware/jwt";
 import * as slugs from"../utils/slugs"
+import {listNft} from "../controllers/user/nft";
 const multer = require('multer');
 
 let storage = multer.diskStorage({
@@ -22,5 +23,6 @@ let uploadImage = multer({ storage: storage }).single('nft_images');
 
 
 routerNft.post(slugs.SLUGS_CREATE_NFT,auth_user, uploadImage,nftCtrl.createNft);
+routerNft.get("/listNft",auth_user, uploadImage,nftCtrl.listNft);
 
 module.exports=routerNft;

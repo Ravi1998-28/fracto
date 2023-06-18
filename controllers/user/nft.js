@@ -59,6 +59,11 @@ export let createNft = async (req, res) => {
                 message: "NFT created successfully",
                 data: nftDataRes,
             });
+        }else {
+            return res.status(200).json({
+                success: false,
+                message: "You are not authorised to create nft.",
+            })
         }
 
 
@@ -70,3 +75,35 @@ export let createNft = async (req, res) => {
             .json({ success: false, message: "There are some error", e });
     }
 };
+
+export let listNft = async (req, res) => {
+    try {
+        let nftDataRes = await nft.find();
+        return res.status(200).json({
+            success: true,
+            message: "List of nft",
+            data: nftDataRes,
+        })
+    } catch (e) {
+        console.log("there are ", e);
+        return res
+            .status(500)
+            .json({ success: false, message: "There are some error", e });
+    }
+};
+
+// export let listNft = async (req, res) => {
+//     try {
+//         let nftDataRes = await nft.find();
+//         return res.status(200).json({
+//             success: true,
+//             message: "NFT created successfully",
+//             data: nftDataRes,
+//         })
+//     } catch (e) {
+//         console.log("there are ", e);
+//         return res
+//             .status(500)
+//             .json({ success: false, message: "There are some error", e });
+//     }
+// };
