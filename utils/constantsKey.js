@@ -42,6 +42,7 @@ export const KEY_ACCESS_TOKEN = "accessToken";
 export const KEY_REFRESH_TOKEN = "refreshToken";
 export const KEY_USER_ID = "user_id";
 export const KEY_IP = "ip";
+export const KEY_CATEGORY_ID = "category_id";
 export const KEY_DATE = "date";
 export const KEY_USER_DATA = "user_data";
 export const KEY_UNDERSCOR_ID = "_id";

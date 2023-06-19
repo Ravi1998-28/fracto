@@ -1,5 +1,6 @@
 import user from '../../models/user';
 import nft from '../../models/nft'
+import category from '../../models/category'
 import * as constantsKeys from "../../utils/constantsKey";
 
 export let createNft = async (req, res) => {
@@ -29,6 +30,7 @@ export let createNft = async (req, res) => {
 
             let nftData = {
                 [constantsKeys.KEY_USER_ID]: req.user._id,
+                [constantsKeys.KEY_CATEGORY_ID]: req.body.category_id,
                 [constantsKeys.KEY_NFT_IMAGES]: file,
                 [constantsKeys.KEY_NFT_NAME]: req.body[constantsKeys.KEY_NFT_NAME],
                 [constantsKeys.KEY_EXTERNAL_LINK]:
@@ -83,6 +85,41 @@ export let listNft = async (req, res) => {
             success: true,
             message: "List of nft",
             data: nftDataRes,
+        })
+    } catch (e) {
+        console.log("there are ", e);
+        return res
+            .status(500)
+            .json({ success: false, message: "There are some error", e });
+    }
+};
+
+export let createCategory = async (req, res) => {
+    try {
+        let data = {
+            name : req.body.name
+        }
+        let categData = await category.create(data);
+        return res.status(200).json({
+            success: true,
+            message: "Category created successfully.",
+            data: categData,
+        })
+    } catch (e) {
+        console.log("there are ", e);
+        return res
+            .status(500)
+            .json({ success: false, message: "There are some error", e });
+    }
+};
+
+export let listCategory = async (req, res) => {
+    try {
+        let categData = await category.find();
+        return res.status(200).json({
+            success: true,
+            message: "list of Categories.",
+            data: categData,
         })
     } catch (e) {
         console.log("there are ", e);
