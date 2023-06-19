@@ -10,26 +10,7 @@ export const addWallet = async (req, res) => {
 
         let userDataAddress = await userModel.findOne({wallet_address:req.body.wallet_address});
 
-        if (userDataAddress && userDataAddress.role === 'user') {
-            // if(userDataAddress.deleted === 1){
-            //     return res
-            //         .status(200)
-            //         .json({ success: false, message: "Your account is deleted by Admin",});
-            // }
-
-            // if(userDataAddress.status === 0){
-            //     return res
-            //         .status(200)
-            //         .json({ success: false, message: "Your Profile has been blocked by admin. Please contact support@metaprops.io",});
-            // }
-
-            if(userDataAddress.role != req.body.role){
-                return res
-                    .status(200)
-                    .json({ success: false, message: "not authorised role..",});
-            };
-
-
+        if (userDataAddress) {
 
             userDataAddress.wallet_status=1;
             await userDataAddress.save();
@@ -50,10 +31,10 @@ export const addWallet = async (req, res) => {
                 .json({ success: true, message: "you are successfully login",accessToken,Refreshtoken,data:userDataAddress });
         };
 
-        if(req.body.role === 'user' || req.body.role === 'admin') {
+
             const userData = {
                 wallet_address: req.body.wallet_address,
-                role: req.body.role,
+                role: 'user',
             };
             let userDataRes = await new userModel(userData);
             await userDataRes.save();
@@ -77,16 +58,6 @@ export const addWallet = async (req, res) => {
                     Refreshtoken,
                     data: userDataRes
                 });
-
-        }else{
-            return res
-                .status(200)
-                .json({
-                    success: false,
-                    message: "not authorised role.",
-                });
-        }
-
 
     } catch (error) {
         console.log("there are ", error);
