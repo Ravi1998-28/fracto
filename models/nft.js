@@ -85,7 +85,11 @@ let nftSchema = new Schema(
         },
 
 
+        [constantsKeys.KEY_TOKEN_ID]: {
+            type: String,
+            default: undefined
 
+        },
 
         [constantsKeys.KEY_TOKEN_COUNT]: {
             type: Number,

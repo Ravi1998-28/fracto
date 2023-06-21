@@ -42,6 +42,7 @@ export let createNft = async (req, res) => {
                 [constantsKeys.KEY_CONSTRUCTION_STATUS]:
                     req.body[constantsKeys.KEY_CONSTRUCTION_STATUS],
                 [constantsKeys.KEY_BLOCKCHAIN]: req.body[constantsKeys.KEY_BLOCKCHAIN],
+                [constantsKeys.KEY_TOKEN_ID]: req.body[constantsKeys.KEY_TOKEN_ID],
                 [constantsKeys.KEY_TOKEN_COUNT]: Number(tokenCount),
                 [constantsKeys.KEY_CREATOR_ADDRESS]:
                     req.body[constantsKeys.KEY_OWNER_ADDRESS],
