@@ -1,9 +1,35 @@
 //const express = require("express");
-//import userModel from "../../models/user";
 import * as constantsKeys from "../../utils/constantsKey";
 import * as slugs from "../../utils/slugs";
 import roleModel from '../../models/roles';
+import userModel from "../../models/user";
+import jwt from "jsonwebtoken";
 //export const routerUsers = express.Router();
+
+
+export const listOfUsers = async (req, res) => {
+
+    try {
+        console.log("e",req.body)
+
+        let usersList = await userModel.find({role:"user"});
+
+
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "List of all users.",
+                data:usersList
+            });
+
+    } catch (error) {
+        console.log("there are ", error);
+        return res
+            .status(500)
+            .json({ success: false, message: "There are some error" });
+    }
+};
 
 
 export const addRoles = async (req, res) => {
@@ -26,6 +52,67 @@ export const Role = async (req, res) => {
     }catch (error) {
         console.log("there are ", error);
         return res.status(500).json({ success: false, message: "Server error" });
+    }
+};
+
+
+export const getProfile = async (req, res) => {
+
+
+    try {
+
+        // let userDataAddress = await userModel.findById(req.user._id);
+        let userDataAddress = await userModel.findById(req.body.id);
+
+        return res
+            .status(200)
+            .json({ success: true, data:userDataAddress  });
+
+    } catch (error) {
+        console.log("there are ", error);
+        return res
+            .status(500)
+            .json({ success: false, message: "There are some error" });
+    }
+};
+export const updateProfile = async (req, res) => {
+
+
+    try {
+
+        let userDataAddress = await userModel.findById(req.user._id);
+        if(req.body.phone_no){
+            userDataAddress.phone_no=req.body.phone_no
+        }
+        if(req.body.email){
+            userDataAddress.email=req.body.email
+        }
+        if(req.body.date_of_birth){
+            userDataAddress.date_of_birth=req.body.date_of_birth
+        }
+        if(req.body.name){
+            userDataAddress.name=req.body.name
+        }
+        if(req.body.occupation){
+            userDataAddress.occupation=req.body.occupation
+        }
+        if(req.files.display_picture){
+            userDataAddress.display_picture=req.files.display_picture[0].location
+        }
+        if(req.files.cover_picture){
+            userDataAddress.cover_picture=req.files.cover_picture[0].location
+        }
+        await userDataAddress.save();
+
+        return res
+            .status(200)
+            .json({ success: true, data:userDataAddress  });
+
+    } catch (error) {
+        console.log("there are ", error);
+        return res
+            .status(500)
+            .json({ success: false, message: "There are some error" });
     }
 };
 

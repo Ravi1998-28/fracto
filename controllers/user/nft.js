@@ -95,6 +95,22 @@ export let listNft = async (req, res) => {
     }
 };
 
+export let nftDetails = async (req, res) => {
+    try {
+        let nftDataRes = await nft.findOne({_id:req.query.id});
+        return res.status(200).json({
+            success: true,
+            message: "nft data.",
+            data: nftDataRes,
+        })
+    } catch (e) {
+        console.log("there are ", e);
+        return res
+            .status(500)
+            .json({ success: false, message: "There are some error", e });
+    }
+};
+
 export let createCategory = async (req, res) => {
     try {
         let data = {
