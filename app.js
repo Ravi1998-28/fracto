@@ -11,6 +11,7 @@ const path =require('path');
 const PORT =  4000; //process.env.PORT;
 import routerUser from  "./routes/user.js";
 import routerNft from "./routes/nft"
+import routerCollection from "./routes/collection"
 
 
 //Include in app
@@ -37,5 +38,6 @@ app.listen(PORT, () => {
 
 app.use("/user", routerUser);
 app.use("/nft",routerNft);
+app.use("/collection",routerCollection);
 
 module.exports = app;

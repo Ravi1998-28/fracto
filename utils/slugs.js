@@ -17,6 +17,8 @@ export const SLUGS_PURCHASE_NFT = "/purchase";
 export const SLUGS_ACTIVITY = "/activity";
 export const SLUGS_GET_NFT = "/nft-data";
 export const SLUGS_COLLECTION = "/collection";
+export const SLUGS_LIST_ALL_COLLECTIONS = "/allCollections";
+export const SLUGS_ADD_COLLECTION = "/addCollection";
 export const SLUGS_USER_COLLECTION = "/userCollection";
 export const SLUGS_CREATOR_COLLECTION = "/creator-collection";
 export const SLUGS_SALE_NFT = "/sale-nft";
@@ -118,6 +120,7 @@ export const SLUG_ADD_BANNER_NFT = '/addBannerNft'
 
 //-----admin----
 export const SLUG_EDIT_USER_PROFILE = "/editUserProfile";
+export const SLUG_GET_USER_PROFILE = "/getUserProfile";
 export const SLUG_LIST_OF_ALL_MANAGE_creators = "/allCreatorsList";
 export const SLUG_CREATOR_HOME_FEATURED = "/creatorFeaturedHomePage";
 export const SLUG_DELETE_COLLECTION = "/deleteCollection";
