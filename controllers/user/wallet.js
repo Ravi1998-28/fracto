@@ -20,11 +20,11 @@ export const addWallet = async (req, res) => {
             };
 
             const accessToken = jwt.sign(payload, "iAmUserAccessSecret", {
-                expiresIn: "60min",
+                expiresIn: "90d",
             });
 
             const Refreshtoken = jwt.sign(payload, "iAmUserRefreshSecret", {
-                expiresIn: "120min",
+                expiresIn: "95d",
             });
             return res
                 .status(200)

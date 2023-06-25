@@ -53,7 +53,10 @@ const UserSchema = new Schema({
             default:""  // 0 false 1 true
         },
 
-
+        [constantsKeys.KEY_DATE_OF_BIRTH]:{
+            type:String,
+            default:""  // 0 false 1 true
+        },
 
         [constantsKeys.KEY_DELETED] : {
             type: Number,

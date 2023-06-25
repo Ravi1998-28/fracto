@@ -60,7 +60,7 @@ export const getProfile = async (req, res) => {
     try {
 
         // let userDataAddress = await userModel.findById(req.user._id);
-        let userDataAddress = await userModel.findOne({_id:req.user._id});
+        let userDataAddress = await userModel.findOne({_id:req.query.id});
 
         return res
             .status(200)
