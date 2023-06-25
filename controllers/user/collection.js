@@ -105,3 +105,28 @@ export const getCollection = async (req, res) => {
     }
 
 }
+
+
+export const editCollection = async (req, res) => {
+
+    try {
+        let where ={ [constantsKeys.KEY_UNDERSCOR_ID]: req.body[constantsKeys.KEY_COLLECTION_ID] };
+        let data = req.body;
+
+        delete data[constantsKeys.KEY_COLLECTION_ID];
+        if (req.file && req.file.filename) {
+            data["image"] = req.file.filename;
+        }
+        const collectionList = await collection.findOneAndUpdate(where,data);
+
+        return res.status(200).json({
+            status: 200,
+            success: true,
+            message: "collection updated successfully",
+        });
+    } catch (error) {
+        console.log("there are ", error);
+        return res.status(500).json({ success: false, message: "Server error" });
+    }
+
+}
