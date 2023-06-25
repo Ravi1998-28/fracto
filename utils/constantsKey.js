@@ -90,6 +90,7 @@ export const KEY_ZIP_NAME = "zip_name";
 export const KEY_ZIP_PATH = "zip_path";
 export const KEY_NFT_NAME = "nft_name";
 export const KEY_EXTERNAL_LINK = "external_link";
+export const KEY_LINK = "link";
 export const KEY_COMPLETION_STATUS = "completion_status";
 export const KEY_CUSTOM_PROPERTIES = "custoroperties";
 export const KEY_CUSTOM_PROPERTIES_TYPE = 'type'

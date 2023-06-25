@@ -95,6 +95,12 @@ export const updateProfile = async (req, res) => {
         if(req.body.occupation){
             userDataAddress.occupation=req.body.occupation
         }
+        if(req.body.bio){
+            userDataAddress.bio=req.body.bio
+        }
+        if(req.body.link){
+            userDataAddress.bio=req.body.link
+        }
         if(file){
             userDataAddress.display_picture=file;
         }

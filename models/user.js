@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import * as constantsKeys from "../utils/constantsKey";
+import {KEY_LINK} from "../utils/constantsKey";
 const Schema = mongoose.Schema;
 // const ObjectId = Schema.ObjectId;
 
@@ -53,9 +54,14 @@ const UserSchema = new Schema({
             default:""  // 0 false 1 true
         },
 
-        [constantsKeys.KEY_DATE_OF_BIRTH]:{
+        [constantsKeys.KEY_BIO]:{
             type:String,
-            default:""  // 0 false 1 true
+            default:""
+        },
+
+        [constantsKeys.KEY_LINK]:{
+            type:String,
+            default:""
         },
 
         [constantsKeys.KEY_DELETED] : {
