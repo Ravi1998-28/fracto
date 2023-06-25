@@ -24,6 +24,7 @@ let storage = multer.diskStorage({
 let uploadImage = multer({ storage: storage }).single('display_picture');
 
 routerUser.post(slugs.SLUG_ADD_USERS, walletCtrl.addWallet);
+routerUser.post(slugs.SLUG_DISCONNECT_WALLET, auth_user,walletCtrl.walletDisconnect);
 routerUser.post(slugs.SLUG_ADD_ROLE, userCtrl.addRoles);
 routerUser.get(slugs.SLUG_ROLE, userCtrl.Role);
 routerUser.get(slugs.SLUG_LIST_ALL_USERS,auth_user, userCtrl.listOfUsers);
