@@ -5,6 +5,7 @@ import { auth_user } from "../middlerware/jwt";
 import * as slugs from"../utils/slugs"
 import {nftDetails} from "../controllers/user/nft";
 import {SLUGS_COLLECTION, SLUGS_LIST_ALL_COLLECTIONS} from "../utils/slugs";
+import {listNftInCollection} from "../controllers/user/collection";
 const multer = require('multer');
 
 let storage = multer.diskStorage({
@@ -22,7 +23,8 @@ let uploadImage = multer({ storage: storage }).single('image');
 
 routerCollec.post(slugs.SLUGS_ADD_COLLECTION,auth_user, uploadImage,collectionCtrl.addCollectionAdmin);
 routerCollec.get(slugs.SLUGS_LIST_ALL_COLLECTIONS,auth_user,collectionCtrl.listOfAllCollections);
-routerCollec.get(slugs.SLUGS_COLLECTION,auth_user,collectionCtrl.getCollection);
+routerCollec.get(slugs.SLUGS_COLLECTION,auth_user,collectionCtrl.getCollection);listNftInCollection
 routerCollec.post('/editCollection',auth_user, uploadImage,collectionCtrl.editCollection);
+routerCollec.get('/listNftInCollection',auth_user,collectionCtrl.listNftInCollection);
 
 module.exports=routerCollec;

@@ -1,6 +1,7 @@
 import user from '../../models/user';
 import nft from '../../models/nft'
 import category from '../../models/category'
+import tokenCollection from '../../models/tokenCollection';
 import * as constantsKeys from "../../utils/constantsKey";
 
 export let createNft = async (req, res) => {
@@ -55,7 +56,12 @@ export let createNft = async (req, res) => {
                     req.body[constantsKeys.KEY_IMFORMATION_TYPE],
             };
 
-            let nftDataRes = await nft.create(nftData)
+            let nftDataRes = await nft.create(nftData);
+
+            //Add nft in collection
+            let collection_id = req.body.collection_id;
+            await tokenCollection.create({token_id:nftDataRes?._id,collection_id:collection_id})
+
             console.log("nftDataRes", nftDataRes);
             return res.status(200).json({
                 success: true,

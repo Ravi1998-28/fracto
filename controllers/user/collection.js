@@ -2,6 +2,9 @@ import user from '../../models/user';
 import nft from '../../models/nft'
 import collection from '../../models/collection'
 import * as constantsKeys from "../../utils/constantsKey";
+let ObjectId = require('mongodb').ObjectID;
+let mongoose = require('mongoose');
+import tokenCollection from '../../models/tokenCollection';
 
 export const addCollectionAdmin = async (req, res) => {
     try {
@@ -129,4 +132,48 @@ export const editCollection = async (req, res) => {
         return res.status(500).json({ success: false, message: "Server error" });
     }
 
+}
+
+export const listNftInCollection = async (req, res) => {
+
+    try {
+           let where = [
+            {
+                $match: {
+                    [constantsKeys.KEY_COLLECTION_ID]: new mongoose.Types.ObjectId(req.query[constantsKeys.KEY_COLLECTION_ID])
+                }
+            },
+            {
+                $lookup: {
+                    "from": 'nfts',
+                    "localField": 'token_id',
+                    "foreignField": constantsKeys.KEY_UNDERSCOR_ID,
+                    "as": 'nft_data'
+                }
+            },
+
+
+        ]
+
+      const data = await tokenCollection.aggregate(where);
+
+        if (data) {
+            return res.status(200).json({
+                status: 200,
+                success: true,
+                message: "list of NFT in collection ",
+                data: data,
+            });
+        } else {
+            return res.status(200).json({
+                status: 400,
+                success: false,
+                message: "No NFT found",
+                data: {},
+            });
+        }
+    } catch (error) {
+        console.log("there are ", error);
+        return res.status(500).json({ success: false, message: "Server error" });
+    }
 }

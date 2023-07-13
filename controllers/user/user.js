@@ -99,7 +99,7 @@ export const updateProfile = async (req, res) => {
             userDataAddress.bio=req.body.bio
         }
         if(req.body.link){
-            userDataAddress.bio=req.body.link
+            userDataAddress.link=req.body.link
         }
         if(file){
             userDataAddress.display_picture=file;
