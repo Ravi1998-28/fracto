@@ -146,6 +146,7 @@ export const KEY_IPFS_URI = "ipfs_uri";
 export const KEY_CURRENCY = "currency";
 export const KEY_HASH_VALUE = "hash_value";
 export const KEY_IS_LOCK = "is_lock"
+export const KEY_TRANSACTION_ID = "transaction_id"
 
 
 // cms

@@ -54,6 +54,8 @@ export let createNft = async (req, res) => {
                     req.body[constantsKeys.KEY_PROPERTY_TYPE],
                 [constantsKeys.KEY_IMFORMATION_TYPE]:
                     req.body[constantsKeys.KEY_IMFORMATION_TYPE],
+                [constantsKeys.KEY_TRANSACTION_ID]:
+                    req.body[constantsKeys.KEY_TRANSACTION_ID],
             };
 
             let nftDataRes = await nft.create(nftData);

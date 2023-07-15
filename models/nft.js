@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 //import * as ConstCollectionRefs from "../utils/ConstCollectionRefs";
 import * as constantsKeys from "../utils/constantsKey";
-import {KEY_CATEGORY_ID} from "../utils/constantsKey";
+import {KEY_CATEGORY_ID, KEY_TRANSACTION_ID} from "../utils/constantsKey";
 
 const Schema = mongoose.Schema;
 
@@ -150,6 +150,10 @@ let nftSchema = new Schema(
         [constantsKeys.KEY_IS_LOCK]: {
             type: Number,
             default: 0,
+        },
+        [constantsKeys.KEY_TRANSACTION_ID]: {
+            type: String,
+            default: "",
         },
     },
     {
