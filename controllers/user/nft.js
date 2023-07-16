@@ -250,6 +250,63 @@ export let saleNFT = async (req, res) => {
             .json({ success: false, message: "There are some error", e });
     }
 };
+export const onSale = async (req, res) => {
+    try {
+
+
+        let obj = { "token_owner.on_sale": 1 }
+
+
+
+        let where = [
+
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "user_id",
+                    foreignField: constantsKeys.KEY_UNDERSCOR_ID,
+                    as: "user_data",
+                },
+            },
+            {
+                $unwind: {
+                    path: "$" + "user_data",
+                    preserveNullAndEmptyArrays: true,
+                },
+            },
+            {
+                $lookup: {
+                    "from": 'tokenOwner',
+                    "localField": '_id',
+                    "foreignField": "token_id",
+                    "as": 'token_owner'
+                }
+            },
+            {
+                $unwind: {
+                    path: "$" + "token_owner",
+                    preserveNullAndEmptyArrays: true,
+                },
+            },
+            {
+                $match:obj
+            },
+
+        ];
+
+        const data = await nft.aggregate(where);
+
+        return res.status(200).json({
+            success: true,
+            data: data,
+
+        })
+
+    } catch (error) {
+        console.log("there are ", error);
+        return res.status(500).json({ success: false, message: "Server error" });
+    }
+};
 
 
 

@@ -4,6 +4,7 @@ const routerNft = express.Router();
 import { auth_user } from "../middlerware/jwt";
 import * as slugs from"../utils/slugs"
 import {nftDetails} from "../controllers/user/nft";
+import {SLUG_ON_SALE} from "../utils/slugs";
 const multer = require('multer');
 
 let storage = multer.diskStorage({
@@ -25,5 +26,6 @@ routerNft.post("/category",auth_user,nftCtrl.createCategory);
 routerNft.get("/listOfCategories",auth_user,nftCtrl.listCategory);
 routerNft.get(slugs.SLUGS_GET_NFT,auth_user,nftCtrl.nftDetails);
 routerNft.post(slugs.SLUGS_SALE_NFT,auth_user,nftCtrl.saleNFT);
+routerNft.get(slugs.SLUG_ON_SALE,auth_user,nftCtrl.onSale);
 
 module.exports=routerNft;
