@@ -4,6 +4,7 @@ import category from '../../models/category'
 import tokenCollection from '../../models/tokenCollection';
 import TokenOwner from '../../models/tokenOwner';
 import * as constantsKeys from "../../utils/constantsKey";
+let  ObjectId = require("mongodb").ObjectId;
 
 export let createNft = async (req, res) => {
     try {
@@ -106,11 +107,69 @@ export let listNft = async (req, res) => {
 
 export let nftDetails = async (req, res) => {
     try {
-        let nftDataRes = await nft.findOne({_id:req.query.id});
+        let nftDataRes = await nft.aggregate([
+            {
+                $match: {
+                    _id: new ObjectId(req.query.id),
+                    // is_deleted: 0,
+                    // status: 1
+                },
+            },
+
+            {
+
+                $lookup: {
+                    from: "tokenOwner",
+                    localField: "_id",
+                    foreignField: "token_id",
+                    as: "token_owner",
+                },
+            },
+            {
+                $unwind: {
+                    path: "$" + "token_owner",
+                    preserveNullAndEmptyArrays: true,
+                },
+
+            },
+            {
+
+                $lookup: {
+                    from: "tokenCollection",
+                    localField: "_id",
+                    foreignField: "token_id",
+                    as: "token_collection",
+                },
+            },
+            {
+                $unwind: {
+                    path: "$" + "token_collection",
+                    preserveNullAndEmptyArrays: true,
+                },
+
+            },
+            {
+
+                $lookup: {
+                    from: "collections",
+                    localField: "token_collection.collection_id",
+                    foreignField: "_id",
+                    as: "collection",
+                },
+            },
+            {
+                $unwind: {
+                    path: "$" + "collection",
+                    preserveNullAndEmptyArrays: true,
+                },
+
+            },
+        ]);                               //findOne({_id:req.query.id});
+
         return res.status(200).json({
             success: true,
             message: "nft data.",
-            data: nftDataRes,
+            data: nftDataRes[0],
         })
     } catch (e) {
         console.log("there are ", e);
