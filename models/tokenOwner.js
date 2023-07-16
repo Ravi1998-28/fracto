@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 //import * as ConstCollectionRefs from "../utils/ConstCollectionRefs";
 import * as constantsKeys from "../utils/constantsKey";
+import {KEY_REMAINING_FRACTION} from "../utils/constantsKey";
 
 const Schema = mongoose.Schema;
 
@@ -19,13 +20,16 @@ let tokenOwnerSchema = new Schema(
         [constantsKeys.KEY_AMOUNT]: {
             type: Number,
             default:0,
-
         },
         [constantsKeys.KEY_FRACTION_AMOUNT]: {
             type: Number,
             default:0,
         },
         [constantsKeys.KEY_PER_FRACTION_PRICE]: {
+            type: Number,
+            default:0,
+        },
+        [constantsKeys.KEY_REMAINING_FRACTION]: {
             type: Number,
             default:0,
         },

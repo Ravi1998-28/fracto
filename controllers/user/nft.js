@@ -3,6 +3,7 @@ import nft from '../../models/nft'
 import category from '../../models/category'
 import tokenCollection from '../../models/tokenCollection';
 import TokenOwner from '../../models/tokenOwner';
+import purchaseFraction from '../../models/purchaseFraction';
 import * as constantsKeys from "../../utils/constantsKey";
 let  ObjectId = require("mongodb").ObjectId;
 
@@ -257,6 +258,7 @@ export let saleNFT = async (req, res) => {
                 [constantsKeys.KEY_AMOUNT] : req.body[constantsKeys.KEY_AMOUNT],
                 [constantsKeys.KEY_PER_FRACTION_PRICE] : req.body[constantsKeys.KEY_PER_FRACTION_PRICE],
                 [constantsKeys.KEY_FRACTION_AMOUNT] : req.body[constantsKeys.KEY_FRACTION_AMOUNT],
+                [constantsKeys.KEY_REMAINING_FRACTION] : req.body[constantsKeys.KEY_FRACTION_AMOUNT],
                 [constantsKeys.KEY_ON_SALE]: 1,
                 [constantsKeys.KEY_TOKEN_ID]: tokenData[constantsKeys.KEY_UNDERSCOR_ID],
                 [constantsKeys.KEY_HASH_VALUE]: req.body[constantsKeys.KEY_HASH_VALUE],
@@ -368,19 +370,45 @@ export const onSale = async (req, res) => {
 };
 
 
+export let purchaseNft = async (req, res) => {
+    console.log("heyyy");
+    try {
+        const tokenData = await TokenOwner.findOne({ token_id: new ObjectId(req.body.token_id), on_sale: 1 });
+        console.log(tokenData);
+        if (tokenData) {
+            console.log("inside")
+            await purchaseFraction.create({
+                user_id:req.user._id,
+                token_id:req.body.token_id,
+                fraction_amount:req.body.fractionPurchase,
+                amount:req.body.amount
+            })
+            tokenData.remaining_fraction = tokenData.remaining_fraction - req.body.fractionPurchase;
+            if(tokenData.fraction_amount == 0){
+                tokenData.on_sale = 0;
+                tokenData.sold = 1;
+            }
 
-// export let listNft = async (req, res) => {
-//     try {
-//         let nftDataRes = await nft.find();
-//         return res.status(200).json({
-//             success: true,
-//             message: "NFT created successfully",
-//             data: nftDataRes,
-//         })
-//     } catch (e) {
-//         console.log("there are ", e);
-//         return res
-//             .status(500)
-//             .json({ success: false, message: "There are some error", e });
-//     }
-// };
+            await tokenData.save();
+        } else {
+            return res
+                .status(200)
+                .json({
+                    success: false,
+                    message: "This NFT not on sale.",
+                });
+        }
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "you have successfully purchased Nft",
+            });
+
+    } catch (e) {
+        console.log("there are ", e);
+        return res
+            .status(500)
+            .json({ success: false, message: "There are some error", e });
+    }
+};
