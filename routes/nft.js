@@ -24,5 +24,6 @@ routerNft.get("/listNft",auth_user, uploadImage,nftCtrl.listNft);
 routerNft.post("/category",auth_user,nftCtrl.createCategory);
 routerNft.get("/listOfCategories",auth_user,nftCtrl.listCategory);
 routerNft.get(slugs.SLUGS_GET_NFT,auth_user,nftCtrl.nftDetails);
+routerNft.post(slugs.SLUGS_SALE_NFT,auth_user,nftCtrl.saleNFT);
 
 module.exports=routerNft;
