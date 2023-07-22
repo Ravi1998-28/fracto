@@ -10,10 +10,10 @@ let purchaseFractionSchema = new Schema(
     {
 
         [constantsKeys.KEY_USER_ID]: {
-            type: String,
+            type: Schema.Types.ObjectId,
         },
         [constantsKeys.KEY_TOKEN_ID]: {
-            type: String,
+            type: Schema.Types.ObjectId,
         },
         [constantsKeys.KEY_FRACTION_AMOUNT]: {
             type: Number,

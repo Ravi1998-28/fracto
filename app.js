@@ -21,7 +21,7 @@ app.use(cors());
 app.use('/public', express.static(path.join(__dirname, 'public')))
 //Database Connections
 mongoose.connect(
-    'mongodb://0.0.0.0:27017/fractodb',
+    'mongodb+srv://ravichauhan2806:ravi_1998@testmongoatlas.79tqwyg.mongodb.net/fractodb',
     { useNewUrlParser: true }
 ).then(()=> {
     console.log("database is connected");

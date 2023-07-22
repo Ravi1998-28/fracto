@@ -412,3 +412,90 @@ export let purchaseNft = async (req, res) => {
             .json({ success: false, message: "There are some error", e });
     }
 };
+
+export let listAllNftOnSaleUser = async (req, res) => {
+    try {
+        console.log("fff",req.user._id)
+        const tokenData = await purchaseFraction.aggregate([{
+           $match: { user_id: new ObjectId(req.user._id) }
+        },
+            {
+                $lookup: {
+                    from: "nft",
+                    localField: "token_id",
+                    foreignField: "_id",
+                    as: "nft-data",
+                },
+            },
+            // {
+            //     $unwind: {
+            //         path: "$" + "nft-data",
+            //         preserveNullAndEmptyArrays: true,
+            //     },
+            // },
+            // {
+            //
+            //     $lookup: {
+            //         from: "tokenOwner",
+            //         localField: "token_id",
+            //         foreignField: "token_id",
+            //         as: "token_owner",
+            //     },
+            // },
+            // {
+            //     $unwind: {
+            //         path: "$" + "token_owner",
+            //         preserveNullAndEmptyArrays: true,
+            //     },
+            //
+            // },
+
+            // {
+            //
+            //     $lookup: {
+            //         from: "tokenCollection",
+            //         localField: "token_id",
+            //         foreignField: "token_id",
+            //         as: "token_collection",
+            //     },
+            // },
+            // {
+            //     $unwind: {
+            //         path: "$" + "token_collection",
+            //         preserveNullAndEmptyArrays: true,
+            //     },
+            //
+            // },
+            // {
+            //
+            //     $lookup: {
+            //         from: "collections",
+            //         localField: "token_collection._id",
+            //         foreignField: "token_id",
+            //         as: "collection",
+            //     },
+            // },
+            // {
+            //     $unwind: {
+            //         path: "$" + "collection",
+            //         preserveNullAndEmptyArrays: true,
+            //     },
+            //
+            // },
+
+        ]);
+
+        return res
+            .status(200)
+            .json({
+                success: true,
+                data: tokenData,
+            });
+
+    } catch (e) {
+        console.log("there are ", e);
+        return res
+            .status(500)
+            .json({ success: false, message: "There are some error", e });
+    }
+};
