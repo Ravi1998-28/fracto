@@ -9,12 +9,11 @@ let tokenCollectionSchema = new Schema(
 
         [constantsKeys.KEY_TOKEN_ID]: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'nft',
+            ref: 'nfts',
         },
         [constantsKeys.KEY_COLLECTION_ID]:{
             type: mongoose.Schema.Types.ObjectId,
-
-
+            ref:''
         }
 
 

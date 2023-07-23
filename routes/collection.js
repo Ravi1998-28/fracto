@@ -23,8 +23,8 @@ let uploadImage = multer({ storage: storage }).single('image');
 
 routerCollec.post(slugs.SLUGS_ADD_COLLECTION,auth_user, uploadImage,collectionCtrl.addCollectionAdmin);
 routerCollec.get(slugs.SLUGS_LIST_ALL_COLLECTIONS,auth_user,collectionCtrl.listOfAllCollections);
-routerCollec.get(slugs.SLUGS_COLLECTION,auth_user,collectionCtrl.getCollection);listNftInCollection
+routerCollec.get(slugs.SLUGS_COLLECTION,auth_user,collectionCtrl.getCollection);
 routerCollec.post('/editCollection',auth_user, uploadImage,collectionCtrl.editCollection);
-routerCollec.get('/listNftInCollection',auth_user,collectionCtrl.listNftInCollection);
+routerCollec.get('/listAllUserNftOnSale',auth_user,collectionCtrl.listNftInCollection);
 
 module.exports=routerCollec;

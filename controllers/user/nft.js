@@ -421,67 +421,67 @@ export let listAllNftOnSaleUser = async (req, res) => {
         },
             {
                 $lookup: {
-                    from: "nft",
+                    from: "nfts",
                     localField: "token_id",
                     foreignField: "_id",
                     as: "nft-data",
                 },
             },
-            // {
-            //     $unwind: {
-            //         path: "$" + "nft-data",
-            //         preserveNullAndEmptyArrays: true,
-            //     },
-            // },
-            // {
-            //
-            //     $lookup: {
-            //         from: "tokenOwner",
-            //         localField: "token_id",
-            //         foreignField: "token_id",
-            //         as: "token_owner",
-            //     },
-            // },
-            // {
-            //     $unwind: {
-            //         path: "$" + "token_owner",
-            //         preserveNullAndEmptyArrays: true,
-            //     },
-            //
-            // },
+            {
+                $unwind: {
+                    path: "$" + "nft-data",
+                    preserveNullAndEmptyArrays: true,
+                },
+            },
+            {
 
-            // {
-            //
-            //     $lookup: {
-            //         from: "tokenCollection",
-            //         localField: "token_id",
-            //         foreignField: "token_id",
-            //         as: "token_collection",
-            //     },
-            // },
-            // {
-            //     $unwind: {
-            //         path: "$" + "token_collection",
-            //         preserveNullAndEmptyArrays: true,
-            //     },
-            //
-            // },
-            // {
-            //
-            //     $lookup: {
-            //         from: "collections",
-            //         localField: "token_collection._id",
-            //         foreignField: "token_id",
-            //         as: "collection",
-            //     },
-            // },
-            // {
-            //     $unwind: {
-            //         path: "$" + "collection",
-            //         preserveNullAndEmptyArrays: true,
-            //     },
-            //
-            // },
+                $lookup: {
+                    from: "tokenOwner",
+                    localField: "token_id",
+                    foreignField: "token_id",
+                    as: "token_owner",
+                },
+            },
+            {
+                $unwind: {
+                    path: "$" + "token_owner",
+                    preserveNullAndEmptyArrays: true,
+                },
+
+            },
+
+            {
+
+                $lookup: {
+                    from: "tokenCollection",
+                    localField: "token_id",
+                    foreignField: "token_id",
+                    as: "token_collection",
+                },
+            },
+            {
+                $unwind: {
+                    path: "$" + "token_collection",
+                    preserveNullAndEmptyArrays: true,
+                },
+
+            },
+            {
+
+                $lookup: {
+                    from: "collections",
+                    localField: "token_collection.collection_id",
+                    foreignField: "_id",
+                    as: "collection",
+                },
+            },
+            {
+                $unwind: {
+                    path: "$" + "collection",
+                    preserveNullAndEmptyArrays: true,
+                },
+
+            },
 
         ]);
 
