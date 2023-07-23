@@ -25,6 +25,6 @@ routerCollec.post(slugs.SLUGS_ADD_COLLECTION,auth_user, uploadImage,collectionCt
 routerCollec.get(slugs.SLUGS_LIST_ALL_COLLECTIONS,auth_user,collectionCtrl.listOfAllCollections);
 routerCollec.get(slugs.SLUGS_COLLECTION,auth_user,collectionCtrl.getCollection);
 routerCollec.post('/editCollection',auth_user, uploadImage,collectionCtrl.editCollection);
-routerCollec.get('/listAllUserNftOnSale',auth_user,collectionCtrl.listNftInCollection);
+routerCollec.get('/listNftInCollection',auth_user,collectionCtrl.listNftInCollection);
 
 module.exports=routerCollec;
