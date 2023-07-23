@@ -417,7 +417,7 @@ export let listAllNftOnSaleUser = async (req, res) => {
     try {
         console.log("fff",req.user._id)
         const tokenData = await purchaseFraction.aggregate([{
-           $match: { user_id: new ObjectId(req.user._id) }
+           $match: { user_id: new ObjectId(req.query.user_id) }
         },
             {
                 $lookup: {
