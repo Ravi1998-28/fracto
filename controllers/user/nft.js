@@ -92,7 +92,25 @@ export let createNft = async (req, res) => {
 
 export let listNft = async (req, res) => {
     try {
-        let nftDataRes = await nft.find();
+        let nftDataRes = await nft.aggregate(
+            [
+                {
+
+                    $lookup: {
+                        from: "tokenOwner",
+                        localField: "_id",
+                        foreignField: "token_id",
+                        as: "token_owner",
+                    },
+                },
+                {
+                    $unwind: {
+                        path: "$" + "token_owner",
+                        preserveNullAndEmptyArrays: true,
+                    },
+
+                },
+        ]);
         return res.status(200).json({
             success: true,
             message: "List of nft",
