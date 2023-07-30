@@ -14,10 +14,10 @@ export let createNft = async (req, res) => {
         };
         let adminData = await user.findOne(where);
         if(adminData.role === 'admin'){
-            let file = "";
-            if (req.file && req.file.filename) {
-                file = req.file.filename;
-            }
+            // let file = "";
+            // if (req.file && req.file.filename) {
+            //     file = req.file.filename;
+            // }
 
             function getRandom(length) {
                 return Math.floor(
@@ -31,11 +31,14 @@ export let createNft = async (req, res) => {
             let number = getRandom(5).toString();
             console.log(number);
             const tokenCount = number + numbers;
-
+            let images = []
+            let array = req.files.nft_media?.forEach((el) => {
+                images.push(el.location);
+            });
             let nftData = {
                 [constantsKeys.KEY_USER_ID]: req.user._id,
                 [constantsKeys.KEY_CATEGORY_ID]: req.body.category_id,
-                [constantsKeys.KEY_NFT_IMAGES]: file,
+                [constantsKeys.KEY_NFT_IMAGES]: images,
                 [constantsKeys.KEY_NFT_NAME]: req.body[constantsKeys.KEY_NFT_NAME],
                 [constantsKeys.KEY_EXTERNAL_LINK]:
                     req.body[constantsKeys.KEY_EXTERNAL_LINK],

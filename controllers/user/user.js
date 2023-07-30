@@ -75,10 +75,10 @@ export const getProfile = async (req, res) => {
 };
 export const updateProfile = async (req, res) => {
     try {
-        let file = "";
-        if (req.file && req.file.filename) {
-            file = req.file.filename;
-        }
+        // let file = "";
+        // if (req.file && req.file.filename) {
+        //     file = req.file.filename;
+        // }
         let userDataAddress = await userModel.findById(req.user._id);
         if(req.body.phone_no){
             userDataAddress.phone_no=req.body.phone_no
@@ -101,8 +101,8 @@ export const updateProfile = async (req, res) => {
         if(req.body.link){
             userDataAddress.link=req.body.link
         }
-        if(file){
-            userDataAddress.display_picture=file;
+        if(req.files?.display_picture[0]?.location){
+            userDataAddress.display_picture=req.files?.display_picture[0]?.location;
         }
         // if(req.files.cover_picture){
         //     userDataAddress.cover_picture=req.files.cover_picture[0].location

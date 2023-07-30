@@ -8,16 +8,17 @@ import tokenCollection from '../../models/tokenCollection';
 
 export const addCollectionAdmin = async (req, res) => {
     try {
-        let file = "";
-        if (req.file && req.file.filename) {
-            file = req.file.filename;
-        }
+        // let file = "";
+        // if (req.file && req.file.filename) {
+        //     file = req.file.filename;
+        // }
+       // console.log("req.files?.image?.location ",req.files?.image);
 
         let data = {
             [constantsKeys.KEY_NAME]: req.body[constantsKeys.KEY_NAME],
             [constantsKeys.KEY_DESCRIPTION]: req.body[constantsKeys.KEY_DESCRIPTION],
             // [constantsKeys.KEY_USER_ID]: req.body[constantsKeys.KEY_USER_ID],
-            [constantsKeys.KEY_IMAGE]: file,
+            [constantsKeys.KEY_IMAGE]: req.files?.image[0]?.location,
         }
         let success = await collection.create(data)
         if (success) {
@@ -117,9 +118,10 @@ export const editCollection = async (req, res) => {
         let data = req.body;
 
         delete data[constantsKeys.KEY_COLLECTION_ID];
-        if (req.file && req.file.filename) {
-            data["image"] = req.file.filename;
-        }
+        // if (req.file && req.file.filename) {
+        //     data["image"] = req.file.filename;
+        // }
+        data["image"] = req.files?.image[0]?.location;
         const collectionList = await collection.findOneAndUpdate(where,data);
 
         return res.status(200).json({
