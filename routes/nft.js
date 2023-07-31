@@ -12,8 +12,8 @@ const multer = require('multer');
 ////Aws
 
 AWS.config.update({
-    accessKeyId: "AKIAXKR6HGL4TC2GABEJ",
-    secretAccessKey: "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",
+    accessKeyId: "AKIAXKR6HGL43IRJMY76",
+    secretAccessKey: "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",
 });
 let s3 = new AWS.S3();
 
@@ -25,7 +25,10 @@ const uploadsBusinessGallery = multer({
         s3: s3,
         bucket: "artequitys",
         key: function (req, file, cb) {
-            cb(null, "user" + Date.now() + file.originalname);
+            const folderPath = "artequit/"; // Replace with your desired folder path
+            const filename = "user" + Date.now() + file.originalname;
+            const filePath = folderPath + filename;
+            cb(null, filePath);
         },
     }),
     limits: { fileSize: 30000000 }, // In bytes: 30000000 bytes = 30 MB
