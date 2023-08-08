@@ -115,6 +115,10 @@ let tokenOwnerSchema = new Schema(
             type:String,
             default:"",
         },
+        [constantsKeys.KEY_ON_SALE_PERCENT]:{
+            type:String,
+            default:"",
+        },
         // [constantsKeys.KEY_HASH_VALUE]:{
         //     type:String,
         //     default:"",

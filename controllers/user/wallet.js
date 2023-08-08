@@ -34,7 +34,7 @@ export const addWallet = async (req, res) => {
 
             const userData = {
                 wallet_address: req.body.wallet_address,
-                role: 'user',
+                role: req.body?.role ? req.body.role : 'user' ,
             };
             let userDataRes = await new userModel(userData);
             await userDataRes.save();

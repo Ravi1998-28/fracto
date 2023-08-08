@@ -251,6 +251,7 @@ export let saleNFT = async (req, res) => {
             tokenCheck[constantsKeys.KEY_AMOUNT] = req.body[constantsKeys.KEY_AMOUNT];
             tokenCheck[constantsKeys.KEY_FRACTION_AMOUNT] = req.body[constantsKeys.KEY_FRACTION_AMOUNT];
             tokenCheck[constantsKeys.KEY_PER_FRACTION_PRICE] = req.body[constantsKeys.KEY_PER_FRACTION_PRICE];
+            tokenCheck[constantsKeys.KEY_ON_SALE_PERCENT] = req.body[constantsKeys.KEY_ON_SALE_PERCENT]
             // tokenCheck[constantsKeys.KEY_METPROPS_FEES] = req.body[constantsKeys.KEY_METPROPS_FEES];
             // tokenCheck[constantsKeys.KEY_FUTURE_ROYALITY] = req.body[constantsKeys.KEY_FUTURE_ROYALITY];
             // if (req.body[constantsKeys.KEY_IS_PRIVATE]) {
@@ -283,6 +284,7 @@ export let saleNFT = async (req, res) => {
                 [constantsKeys.KEY_ON_SALE]: 1,
                 [constantsKeys.KEY_TOKEN_ID]: tokenData[constantsKeys.KEY_UNDERSCOR_ID],
                 [constantsKeys.KEY_HASH_VALUE]: req.body[constantsKeys.KEY_HASH_VALUE],
+                [constantsKeys.KEY_ON_SALE_PERCENT]: req.body[constantsKeys.KEY_ON_SALE_PERCENT],
                 // [constantsKeys.KEY_METPROPS_FEES]:
                 //     req.body[constantsKeys.KEY_METPROPS_FEES],
                 // [constantsKeys.KEY_FUTURE_ROYALITY]:

@@ -150,6 +150,7 @@ export const KEY_CURRENCY = "currency";
 export const KEY_HASH_VALUE = "hash_value";
 export const KEY_IS_LOCK = "is_lock"
 export const KEY_TRANSACTION_ID = "transaction_id"
+export const KEY_ON_SALE_PERCENT = "on_sale_percent"
 
 
 // cms
