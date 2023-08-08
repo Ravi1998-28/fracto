@@ -286,6 +286,7 @@ export let saleNFT = async (req, res) => {
                 [constantsKeys.KEY_TOKEN_ID]: tokenData[constantsKeys.KEY_UNDERSCOR_ID],
                 [constantsKeys.KEY_HASH_VALUE]: req.body[constantsKeys.KEY_HASH_VALUE],
                 [constantsKeys.KEY_ON_SALE_PERCENT]: req.body[constantsKeys.KEY_ON_SALE_PERCENT],
+                [constantsKeys.KEY_ON_SALE_FRACTIONS] : Math.round((req.body[constantsKeys.KEY_ON_SALE_PERCENT]/100)*req.body[constantsKeys.KEY_FRACTION_AMOUNT])
                 // [constantsKeys.KEY_METPROPS_FEES]:
                 //     req.body[constantsKeys.KEY_METPROPS_FEES],
                 // [constantsKeys.KEY_FUTURE_ROYALITY]:
