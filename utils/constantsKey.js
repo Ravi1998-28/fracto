@@ -108,6 +108,7 @@ export const KEY_DRAWING_FORMAT = "drawing_format";
 export const KEY_PRICE = "price";
 export const KEY_PER_FRACTION_PRICE = "per_fraction_price";
 export const KEY_REMAINING_FRACTION = "remaining_fraction";
+export const KEY_ON_SALE_FRACTIONS = "on_sale_fractions";
 export const KEY_PREVIEW_IMAGE = "preview_image";
 export const KEY_NETPROPS_FEES = "netprops_fees";
 export const KEY_DURATION = "duration";

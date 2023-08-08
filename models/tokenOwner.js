@@ -116,7 +116,11 @@ let tokenOwnerSchema = new Schema(
             default:"",
         },
         [constantsKeys.KEY_ON_SALE_PERCENT]:{
-            type:String,
+            type:Number,
+            default:"",
+        },
+        [constantsKeys.KEY_ON_SALE_FRACTIONS]:{
+            type:Number,
             default:"",
         },
         // [constantsKeys.KEY_HASH_VALUE]:{
