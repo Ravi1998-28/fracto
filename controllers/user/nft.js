@@ -13,7 +13,7 @@ export let createNft = async (req, res) => {
             _id: req.user._id,
         };
         let adminData = await user.findOne(where);
-        if(adminData.role === 'admin'){
+        if(adminData.role === 'admin' || adminData.role === 'creator'){
             // let file = "";
             // if (req.file && req.file.filename) {
             //     file = req.file.filename;
@@ -440,7 +440,7 @@ export let purchaseNft = async (req, res) => {
 
 export let listAllNftOnSaleUser = async (req, res) => {
     try {
-        console.log("fff",req.user._id)
+        console.log("fff dfsdffsfdsfds",req.user._id)
         const tokenData = await purchaseFraction.aggregate([{
            $match: { user_id: new ObjectId(req.query.user_id) }
         },
@@ -515,6 +515,68 @@ export let listAllNftOnSaleUser = async (req, res) => {
             .json({
                 success: true,
                 data: tokenData,
+            });
+
+    } catch (e) {
+        console.log("there are ", e);
+        return res
+            .status(500)
+            .json({ success: false, message: "There are some error", e });
+    }
+};
+
+export let listCreatorAllNft = async (req, res) => {
+    try {
+        console.log("fff",req.user._id)
+        const nftData = await  nft.aggregate([
+            {
+            $match:{user_id:new ObjectId(req.user._id)}
+        }
+        ])
+
+        return res
+            .status(200)
+            .json({
+                success: true,
+                data: nftData,
+            });
+
+    } catch (e) {
+        console.log("there are ", e);
+        return res
+            .status(500)
+            .json({ success: false, message: "There are some error", e });
+    }
+};
+
+export let listCreatorOnSaleAllNft = async (req, res) => {
+    try {
+        console.log("fff",req.user._id)
+        let nftData = await TokenOwner.aggregate([
+            {
+                $lookup: {
+                    from: "nfts",
+                    localField: "token_id",
+                    foreignField: "_id",
+                    as: "nft-data",
+                },
+            },
+            {
+                $unwind: {
+                    path: "$" + "nft-data",
+                    preserveNullAndEmptyArrays: true,
+                },
+
+            },
+            {
+                $match:{'nft-data.user_id':new ObjectId(req.user._id)}
+            }
+        ])
+        return res
+            .status(200)
+            .json({
+                success: true,
+                data: nftData,
             });
 
     } catch (e) {

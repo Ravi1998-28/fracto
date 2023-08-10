@@ -66,5 +66,7 @@ routerNft.post(slugs.SLUGS_SALE_NFT,auth_user,nftCtrl.saleNFT);
 routerNft.get(slugs.SLUG_ON_SALE,nftCtrl.onSale);
 routerNft.post(slugs.SLUGS_PURCHASE_NFT,auth_user,nftCtrl.purchaseNft);
 routerNft.get("/listAllUserNftOnSale",auth_user,nftCtrl.listAllNftOnSaleUser);
+routerNft.get("/listCreatorAllNft",auth_user,nftCtrl.listCreatorAllNft);
+routerNft.get("/listCreatorOnSaleAllNft",auth_user,nftCtrl.listCreatorOnSaleAllNft);
 
 module.exports=routerNft;
