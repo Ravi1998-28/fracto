@@ -101,7 +101,8 @@ export const updateProfile = async (req, res) => {
         if(req.body.link){
             userDataAddress.link=req.body.link
         }
-        if(req.files?.display_picture[0]?.location){
+
+        if(req.files && req.files.display_picture && req.files.display_picture[0]){
             userDataAddress.display_picture=req.files?.display_picture[0]?.location;
         }
         // if(req.files.cover_picture){

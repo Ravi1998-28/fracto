@@ -121,7 +121,7 @@ export const editCollection = async (req, res) => {
         // if (req.file && req.file.filename) {
         //     data["image"] = req.file.filename;
         // }
-        data["image"] = req.files?.image[0]?.location;
+        data["image"] = req.files && req.files.image && req.files.image[0] ? req.files.image[0].location : undefined;
         const collectionList = await collection.findOneAndUpdate(where,data);
 
         return res.status(200).json({
