@@ -4,7 +4,7 @@ const routerNft = express.Router();
 import { auth_user } from "../middlerware/jwt";
 import * as slugs from"../utils/slugs"
 import {nftDetails} from "../controllers/user/nft";
-import {SLUG_ON_SALE} from "../utils/slugs";
+import {SLUG_GET_BANNER_NFT, SLUG_ON_SALE} from "../utils/slugs";
 import AWS from "aws-sdk";
 import multerS3 from "multer-s3";
 const multer = require('multer');
@@ -58,7 +58,7 @@ let storage1 = multer.diskStorage({
 let uploadImage = multer({ storage: storage1 }).single('nft_images');
 
 routerNft.post(slugs.SLUGS_CREATE_NFT,auth_user, uploadsBusinessGallery,nftCtrl.createNft);
-routerNft.get("/listNft", uploadImage,nftCtrl.listNft);
+routerNft.get("/listNft",nftCtrl.listNft);
 routerNft.post("/category",auth_user,nftCtrl.createCategory);
 routerNft.get("/listOfCategories",auth_user,nftCtrl.listCategory);
 routerNft.get(slugs.SLUGS_GET_NFT,nftCtrl.nftDetails);
@@ -68,5 +68,7 @@ routerNft.post(slugs.SLUGS_PURCHASE_NFT,auth_user,nftCtrl.purchaseNft);
 routerNft.get("/listAllUserNftOnSale",auth_user,nftCtrl.listAllNftOnSaleUser);
 routerNft.get("/listCreatorAllNft",auth_user,nftCtrl.listCreatorAllNft);
 routerNft.get("/listCreatorOnSaleAllNft",auth_user,nftCtrl.listCreatorOnSaleAllNft);
+routerNft.post(slugs.SLUG_ADD_BANNER_NFT,nftCtrl.addBannerNft);
+routerNft.get(slugs.SLUG_GET_BANNER_NFT,nftCtrl.getBannerNft);
 
 module.exports=routerNft;

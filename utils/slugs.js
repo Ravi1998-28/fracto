@@ -117,6 +117,7 @@ export const SLUG_CLEAR_ALL_NOTIFICATIONS = '/clearAllNotifications'
 export const SLUG_DELETE_NOTIFICATION = '/deleteNotification'
 export const SLUG_SEEN_NOTIFICATION = '/seenNotification'
 export const SLUG_ADD_BANNER_NFT = '/addBannerNft'
+export const SLUG_GET_BANNER_NFT = '/getBannerNft'
 
 //-----admin----
 export const SLUG_EDIT_USER_PROFILE = "/editUserProfile";

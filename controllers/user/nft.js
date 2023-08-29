@@ -5,6 +5,7 @@ import tokenCollection from '../../models/tokenCollection';
 import TokenOwner from '../../models/tokenOwner';
 import purchaseFraction from '../../models/purchaseFraction';
 import * as constantsKeys from "../../utils/constantsKey";
+import bannerModel from '../../models/bannerNft';
 let  ObjectId = require("mongodb").ObjectId;
 
 export let createNft = async (req, res) => {
@@ -584,5 +585,105 @@ export let listCreatorOnSaleAllNft = async (req, res) => {
         return res
             .status(500)
             .json({ success: false, message: "There are some error", e });
+    }
+};
+
+export const addBannerNft = async (req, res) => {
+    try {
+        var data =
+            {
+                [constantsKeys.KEY_TOKEN_ID]: req.body.id
+            }
+        let dataBanner  = await bannerModel.findOneAndUpdate({}, data);
+         if(!dataBanner) { await bannerModel.create(data);}
+        await nft.findOneAndUpdate({ _id: new ObjectId(req.body.id) }, { [constantsKeys.KEY_BANNER_STATUS]: 1 });
+        await nft.updateMany({ _id: { $ne: new ObjectId(req.body.id) } }, { $set: { [constantsKeys.KEY_BANNER_STATUS]: 0 } });
+
+        return res.status(200).json({
+            status: 200,
+            success: true,
+            message: "Nft added succesfully",
+        });
+
+
+
+    } catch (error) {
+        console.log("there are ", error);
+        return res.status(500).json({ success: false, message: "Server error" });
+    }
+};
+export const getBannerNft = async (req, res) => {
+    try {
+        const bannerData = await bannerModel.aggregate([
+
+            {
+                $lookup: {
+                    "from": 'nfts',
+                    "localField": 'token_id',
+                    "foreignField": constantsKeys.KEY_UNDERSCOR_ID,
+                    "as": 'nft_data'
+                }
+            },
+            {
+                $unwind: {
+                    path: "$" + 'nft_data',
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+
+            {
+                $lookup: {
+                    "from": 'tokenOwner',
+                    "localField": 'nft_data.token_count',
+                    "foreignField": "token_count",
+                    "as": 'token_owner'
+                }
+            },
+
+            {
+                $unwind: {
+                    path: "$" + 'token_owner',
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $project: {
+                    _id: 1,
+                    token_id: 1,
+                    nft_data: "$nft_data",
+                    token_owner: {
+                        $cond: {
+                            if: { $eq: ["$token_owner.on_sale", 1] }, then: "$token_owner",
+                            else: ""
+                        }
+                    }
+                }
+
+
+            }
+            // {$match:{
+            //   "$or": [
+            //     { "token_owner.on_sale": 1 },
+
+
+            //   ]
+            // }}
+
+
+        ]);
+
+
+
+        return res.status(200).json({
+            status: 200,
+            success: true,
+            data: bannerData,
+        });
+
+
+
+    } catch (error) {
+        console.log("there are ", error);
+        return res.status(500).json({ success: false, message: "Server error" });
     }
 };
