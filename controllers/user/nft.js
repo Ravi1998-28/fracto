@@ -254,6 +254,8 @@ export let saleNFT = async (req, res) => {
             tokenCheck[constantsKeys.KEY_PER_FRACTION_PRICE] = req.body[constantsKeys.KEY_PER_FRACTION_PRICE];
             tokenCheck[constantsKeys.KEY_ON_SALE_PERCENT] = req.body[constantsKeys.KEY_ON_SALE_PERCENT]
             tokenCheck[constantsKeys.KEY_ON_SALE_FRACTIONS] = Math.round((req.body[constantsKeys.KEY_ON_SALE_PERCENT]/100)*req.body[constantsKeys.KEY_FRACTION_AMOUNT])
+            // tokenCheck[constantsKeys.KEY_FIXED] = req.body[constantsKeys.KEY_FIXED] ? req.body[constantsKeys.KEY_FIXED] : 0;
+            // tokenCheck[constantsKeys.KEY_AUCTION] = req.body[constantsKeys.KEY_AUCTION] ? req.body[constantsKeys.KEY_AUCTION] : 0;
             // tokenCheck[constantsKeys.KEY_METPROPS_FEES] = req.body[constantsKeys.KEY_METPROPS_FEES];
             // tokenCheck[constantsKeys.KEY_FUTURE_ROYALITY] = req.body[constantsKeys.KEY_FUTURE_ROYALITY];
             // if (req.body[constantsKeys.KEY_IS_PRIVATE]) {
@@ -287,7 +289,9 @@ export let saleNFT = async (req, res) => {
                 [constantsKeys.KEY_TOKEN_ID]: tokenData[constantsKeys.KEY_UNDERSCOR_ID],
                 [constantsKeys.KEY_HASH_VALUE]: req.body[constantsKeys.KEY_HASH_VALUE],
                 [constantsKeys.KEY_ON_SALE_PERCENT]: req.body[constantsKeys.KEY_ON_SALE_PERCENT],
-                [constantsKeys.KEY_ON_SALE_FRACTIONS] : Math.round((req.body[constantsKeys.KEY_ON_SALE_PERCENT]/100)*req.body[constantsKeys.KEY_FRACTION_AMOUNT])
+                [constantsKeys.KEY_ON_SALE_FRACTIONS] : Math.round((req.body[constantsKeys.KEY_ON_SALE_PERCENT]/100)*req.body[constantsKeys.KEY_FRACTION_AMOUNT]),
+                [constantsKeys.KEY_FIXED]:req.body[constantsKeys.KEY_FIXED] ? req.body[constantsKeys.KEY_FIXED] : 0,
+                [constantsKeys.KEY_AUCTION]:req.body[constantsKeys.KEY_AUCTION] ? req.body[constantsKeys.KEY_AUCTION] : 0
                 // [constantsKeys.KEY_METPROPS_FEES]:
                 //     req.body[constantsKeys.KEY_METPROPS_FEES],
                 // [constantsKeys.KEY_FUTURE_ROYALITY]:

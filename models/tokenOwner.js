@@ -121,7 +121,15 @@ let tokenOwnerSchema = new Schema(
         },
         [constantsKeys.KEY_ON_SALE_FRACTIONS]:{
             type:Number,
-            default:"",
+            default:0,
+        },
+        [constantsKeys.KEY_FIXED]:{
+            type:Number,
+            default:0,
+        },
+        [constantsKeys.KEY_AUCTION]:{
+            type:Number,
+            default:0,
         },
         // [constantsKeys.KEY_HASH_VALUE]:{
         //     type:String,

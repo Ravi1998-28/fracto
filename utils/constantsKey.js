@@ -191,5 +191,7 @@ export const KEY_NOTIFICATION_ACTIVITY = "notification_activity";
 export const KEY_BID_START_DATE = "bid_start_date";
 export const KEY_BID_END_DATE = "bid_end_date";
 export const KEY_EXPIRED = "expired";
+export const KEY_FIXED = "fixed";
+export const KEY_AUCTION = "auction";
 
 
