@@ -173,7 +173,7 @@ export const sendOtp = async (req, res) => {
         }
 
         // Check if the user is registered
-        const user = await userModel.findOne({ [constantsKeys.KEY_EMAIL]: req.body[constantsKeys.KEY_EMAIL] });
+        const user = await userModel.findOne({ _id: req.user._id });
         if (!user) {
             throw new Error('User is not registered');
         }
@@ -186,8 +186,8 @@ export const sendOtp = async (req, res) => {
         //     email: req.body[constantsKeys.KEY_EMAIL],
         // });
         await userModel.findOneAndUpdate(
-            { [constantsKeys.KEY_EMAIL]: req.body[constantsKeys.KEY_EMAIL] },
-            {otp:otp}
+            { _id: req.user._id },
+            {[constantsKeys.KEY_EMAIL]: req.body[constantsKeys.KEY_EMAIL], otp:otp}
         );
 
         return res.status(200).json({
