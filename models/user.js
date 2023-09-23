@@ -68,6 +68,14 @@ const UserSchema = new Schema({
             type: Number,
             default: 0, // 1 Active 0 Deleted
         },
+        [constantsKeys.KEY_IS_VERIFIED] : {
+            type: Number,
+            default: 0, // 1 verified 0 not verified
+        },
+        [constantsKeys.KEY_OTP] : {
+            type: Number
+        },
+
 
     },
     {timestamps:true},

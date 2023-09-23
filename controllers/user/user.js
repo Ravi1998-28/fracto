@@ -4,6 +4,8 @@ import * as slugs from "../../utils/slugs";
 import roleModel from '../../models/roles';
 import userModel from "../../models/user";
 import jwt from "jsonwebtoken";
+const validator = require('validator');
+import {sendMail} from "../../middlerware/sendOtp"
 //export const routerUsers = express.Router();
 
 
@@ -160,6 +162,73 @@ export const RefreshTokenUser = async (req, res, next) => {
         });
     } catch (error) {
         next(error);
+    }
+};
+
+export const sendOtp = async (req, res) => {
+    try {
+        // Validate email address
+        if (!validator.isEmail(req.body[constantsKeys.KEY_EMAIL])) {
+            throw new Error('Invalid email address');
+        }
+
+        // Check if the user is registered
+        const user = await userModel.findOne({ [constantsKeys.KEY_EMAIL]: req.body[constantsKeys.KEY_EMAIL] });
+        if (!user) {
+            throw new Error('User is not registered');
+        }
+        // Generate and send OTP
+        const otp = Math.floor(100000 + Math.random() * 900000); // Generates a 6-digit OTP
+
+        // await sendMail({
+        //     subject: 'OTP',
+        //     content: `OTP is ${otp}`,
+        //     email: req.body[constantsKeys.KEY_EMAIL],
+        // });
+        await userModel.findOneAndUpdate(
+            { [constantsKeys.KEY_EMAIL]: req.body[constantsKeys.KEY_EMAIL] },
+            {otp:otp}
+        );
+
+        return res.status(200).json({
+            success: true,
+            message: "Otp sent successfully.",
+            otp: otp,
+        });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({ success: false, message: error.message });
+    }
+};
+
+
+export const verifyOtp = async (req, res) => {
+    try {
+        const user = await userModel.findOne({ [constantsKeys.KEY_EMAIL]: req.body[constantsKeys.KEY_EMAIL] });
+
+        if (!user) {
+            throw new Error('User is not registered');
+        }
+
+        if (user.otp != req.body[constantsKeys.KEY_OTP]) {
+            throw new Error('Invalid OTP');
+        }
+
+        // If OTP is valid, you can update the user's verification status or clear the OTP field
+        user[constantsKeys.KEY_IS_VERIFIED] = 1;
+        user[constantsKeys.KEY_OTP] = null; // Clear the OTP field
+
+        await user.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Account verified successfully."
+        });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({ success: false, message: error.message });
     }
 };
 
