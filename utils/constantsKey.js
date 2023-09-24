@@ -193,5 +193,7 @@ export const KEY_BID_END_DATE = "bid_end_date";
 export const KEY_EXPIRED = "expired";
 export const KEY_FIXED = "fixed";
 export const KEY_AUCTION = "auction";
+export const KEY_MIN_GAS_PRICE = "min_gas_price";
+export const KEY_SELL_GAS_PRICE = "sell_gas_price";
 
 

@@ -536,7 +536,23 @@ export let listCreatorAllNft = async (req, res) => {
         const nftData = await  nft.aggregate([
             {
             $match:{user_id:new ObjectId(req.user._id)}
-        }
+        },
+            {
+
+                $lookup: {
+                    from: "tokenOwner",
+                    localField: "_id",
+                    foreignField: "token_id",
+                    as: "token_owner",
+                },
+            },
+            {
+                $unwind: {
+                    path: "$" + "token_owner",
+                    preserveNullAndEmptyArrays: true,
+                },
+
+            },
         ])
 
         return res
