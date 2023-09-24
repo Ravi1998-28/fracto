@@ -3,17 +3,17 @@ const nodemailer = require('nodemailer');
 const sendMail = async (params) => {
     try {
         const { subject, email, content, attachments = [] } = params;
-        console.log("inside ",subject, email, content, attachments)
-        var transporter = nodemailer.createTransport({
+        //console.log("inside ",subject, email, content, attachments)
+        let transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'v.rai@parthinfosystems.com',
-                pass: '@234',
+                user: 'artequitys@parthinfosystems.com',
+                pass: 'Art@12345',
             },
         });
 
-        var mailOptions = {
-            from: 'v.rai@parthinfosystems.com',
+        let mailOptions = {
+            from: 'artequitys@parthinfosystems.com',
             to: email,
             subject: subject,
             text: content,

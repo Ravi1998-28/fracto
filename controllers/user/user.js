@@ -180,11 +180,11 @@ export const sendOtp = async (req, res) => {
         // Generate and send OTP
         const otp = Math.floor(100000 + Math.random() * 900000); // Generates a 6-digit OTP
 
-        // await sendMail({
-        //     subject: 'OTP',
-        //     content: `OTP is ${otp}`,
-        //     email: req.body[constantsKeys.KEY_EMAIL],
-        // });
+        await sendMail({
+            subject: 'OTP',
+            content: `OTP is ${otp}`,
+            email: req.body[constantsKeys.KEY_EMAIL],
+        });
         await userModel.findOneAndUpdate(
             { _id: req.user._id },
             {[constantsKeys.KEY_EMAIL]: req.body[constantsKeys.KEY_EMAIL], otp:otp}
@@ -193,7 +193,6 @@ export const sendOtp = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "Otp sent successfully.",
-            otp: otp,
         });
     } catch (error) {
         return res
