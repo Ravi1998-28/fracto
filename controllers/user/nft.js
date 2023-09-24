@@ -6,6 +6,7 @@ import TokenOwner from '../../models/tokenOwner';
 import purchaseFraction from '../../models/purchaseFraction';
 import * as constantsKeys from "../../utils/constantsKey";
 import bannerModel from '../../models/bannerNft';
+import nftPrice from '../../models/nftPrice';
 let  ObjectId = require("mongodb").ObjectId;
 
 export let createNft = async (req, res) => {
@@ -652,20 +653,22 @@ export const getBannerNft = async (req, res) => {
             },
 
             {
-                $lookup: {
-                    "from": 'tokenOwner',
-                    "localField": 'nft_data.token_count',
-                    "foreignField": "token_count",
-                    "as": 'token_owner'
-                }
-            },
 
+                $lookup: {
+                    from: "tokenOwner",
+                    localField: "token_id",
+                    foreignField: "token_id",
+                    as: "token_owner",
+                },
+            },
             {
                 $unwind: {
-                    path: "$" + 'token_owner',
-                    preserveNullAndEmptyArrays: true
-                }
+                    path: "$" + "token_owner",
+                    preserveNullAndEmptyArrays: true,
+                },
+
             },
+
             {
                 $project: {
                     _id: 1,
@@ -701,6 +704,78 @@ export const getBannerNft = async (req, res) => {
         });
 
 
+
+    } catch (error) {
+        console.log("there are ", error);
+        return res.status(500).json({ success: false, message: "Server error" });
+    }
+};
+
+export const addNftPrice = async (req, res) => {
+    try {
+        let query =
+            {
+                [constantsKeys.KEY_TOKEN_ID]: req.body[constantsKeys.KEY_TOKEN_ID]
+            }
+            console.log("req.body ", req.body)
+        let data = req.body;
+        // delete data[constantsKeys.KEY_TOKEN_ID];
+        let nftPriceData  = await nftPrice.findOneAndUpdate(query, data);
+        if(!nftPriceData) { await nftPrice.create(req.body);}
+        return res.status(200).json({
+            status: 200,
+            success: true,
+            message: "Nft Price added successfully.",
+        });
+
+    } catch (error) {
+        console.log("there are ", error);
+        return res.status(500).json({ success: false, message: "Server error" });
+    }
+};
+
+export const getListNftPrice = async (req, res) => {
+    try {
+
+        let nftPriceData  = await nftPrice.aggregate([
+            {
+                $lookup: {
+                    "from": 'nfts',
+                    "localField": 'token_id',
+                    "foreignField": constantsKeys.KEY_UNDERSCOR_ID,
+                    "as": 'nft_data'
+                }
+            },
+            {
+                $unwind: {
+                    path: "$" + 'nft_data',
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+
+            // {
+            //
+            //     $lookup: {
+            //         from: "tokenOwner",
+            //         localField: "token_id",
+            //         foreignField: "token_id",
+            //         as: "token_owner",
+            //     },
+            // },
+            // {
+            //     $unwind: {
+            //         path: "$" + "token_owner",
+            //         preserveNullAndEmptyArrays: true,
+            //     },
+            //
+            // },
+
+        ]);
+        return res.status(200).json({
+            status: 200,
+            success: true,
+            data: nftPriceData,
+        });
 
     } catch (error) {
         console.log("there are ", error);
