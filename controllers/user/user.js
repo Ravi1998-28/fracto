@@ -14,7 +14,7 @@ export const listOfUsers = async (req, res) => {
     try {
         console.log("e",req.body)
 
-        let usersList = await userModel.find({role:"user"});
+        let usersList = await userModel.find({role:"user",deleted: 0});
 
 
         return res
@@ -171,7 +171,10 @@ export const sendOtp = async (req, res) => {
         if (!validator.isEmail(req.body[constantsKeys.KEY_EMAIL])) {
             throw new Error('Invalid email address');
         }
-
+        const emailCheck = await userModel.findOne({ email: req.body.email });
+        if (emailCheck) {
+            throw new Error('Email already registered.');
+        }
         // Check if the user is registered
         const user = await userModel.findOne({ _id: req.user._id });
         if (!user) {
@@ -228,6 +231,46 @@ export const verifyOtp = async (req, res) => {
         return res
             .status(500)
             .json({ success: false, message: error.message });
+    }
+};
+
+export const blockAndUnblockUser = async (req, res) => {
+    try {
+        console.log(req.body)
+        const data = await userModel.findOneAndUpdate({_id:req.body.id},{ status: req.body.status });
+        if(data){
+            return res.status(200).json({
+                status: 200,
+                success: true,
+                message: `updated`,
+                data: data,
+            });
+        }
+
+    }
+    catch (error) {
+        console.log("there are ", error);
+        return res.status(500).json({ success: false, message: "Server error" });
+    }
+};
+
+
+export const deleteUser = async (req, res) => {
+    try {
+        const data = await userModel.updateOne({_id:req.query.id},{ $set: { deleted: 1 }},);
+        if(data){
+            return res.status(200).json({
+                status: 200,
+                success: true,
+                message: "user deleted",
+                data: data,
+            });
+        }
+
+    }
+    catch (error) {
+        console.log("there are ", error);
+        return res.status(500).json({ success: false, message: "Server error" });
     }
 };
 

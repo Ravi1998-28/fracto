@@ -66,6 +66,8 @@ routerUser.get(slugs.SLUG_GET_USER_PROFILE,auth_user, userCtrl.getProfile);
 routerUser.put(slugs.SLUG_EDIT_USER_PROFILE,auth_user,uploadImage, userCtrl.updateProfile);
 routerUser.post(slugs.SLUG_SEND_OTP,auth_user, userCtrl.sendOtp);
 routerUser.post(slugs.SLUG_VERIFY,auth_user, userCtrl.verifyOtp);
+routerUser.post(slugs.SLUG_BLOCK_AND_UNBLOCK_USER,auth_user, userCtrl.blockAndUnblockUser);
+routerUser.delete(slugs.SLUG_DELETE_USER,auth_user, userCtrl.deleteUser);
 
 module.exports=routerUser;
 
