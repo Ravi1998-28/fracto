@@ -10,6 +10,9 @@ export const KEY_DOCUMENT_1 = "document_1";
 export const KEY_DOCUMENT_2 = "document_2";
 export const KEY_DOCUMENT_3 = "document_3";
 export const KEY_IS_VERIFY = "is_verify"
+export const KEY_IS_VISIBLE = "is_visible"
+export const KEY_AUCTION_DATE = "auction_date"
+export const KEY_VIDEO = "video"
 
 export const KEY_EMP_COUNT = "emp_count";
 export const KEY_STATUS = "status";

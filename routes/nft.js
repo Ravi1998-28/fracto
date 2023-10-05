@@ -36,6 +36,7 @@ const uploadsBusinessGallery = multer({
     { name: "nft_media" },
     { name: "nft_zip_files" },
     { name: "preview_image" },
+    { name: "video" },
 ]);
 
 ////end Aws

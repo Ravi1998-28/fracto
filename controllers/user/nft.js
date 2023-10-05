@@ -37,6 +37,7 @@ export let createNft = async (req, res) => {
             let array = req.files.nft_media?.forEach((el) => {
                 images.push(el.location);
             });
+            console.log("req.files.video[0] ", req.files.video[0].location);
             let nftData = {
                 [constantsKeys.KEY_USER_ID]: req.user._id,
                 [constantsKeys.KEY_CATEGORY_ID]: req.body.category_id,
@@ -64,6 +65,13 @@ export let createNft = async (req, res) => {
                     req.body[constantsKeys.KEY_IMFORMATION_TYPE],
                 [constantsKeys.KEY_TRANSACTION_ID]:
                     req.body[constantsKeys.KEY_TRANSACTION_ID],
+                [constantsKeys.KEY_IS_VISIBLE]:
+                    req.body[constantsKeys.KEY_IS_VISIBLE],
+                [constantsKeys.KEY_AUCTION_DATE]:
+                    req.body[constantsKeys.KEY_AUCTION_DATE],
+                [constantsKeys.KEY_VIDEO]:
+                req.files.video[0].location,
+
             };
 
             let nftDataRes = await nft.create(nftData);
@@ -72,7 +80,6 @@ export let createNft = async (req, res) => {
             let collection_id = req.body.collection_id;
             await tokenCollection.create({token_id:nftDataRes?._id,collection_id:collection_id})
 
-            console.log("nftDataRes", nftDataRes);
             return res.status(200).json({
                 success: true,
                 message: "NFT created successfully",

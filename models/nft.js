@@ -143,15 +143,23 @@ let nftSchema = new Schema(
             type: Number,
             default: 1   // 0 false 1 true
         },
-        [constantsKeys.KEY_BANNER_STATUS]: {
+        [constantsKeys.KEY_IS_VISIBLE]: {
             type: Number,
-            default: 0   // 0 tue 1 false
+            default: 1   // 1 tue 0 false
+        },
+        [constantsKeys.KEY_AUCTION_DATE]: {
+            type: Date,
+            default: Date.now
         },
         [constantsKeys.KEY_IS_LOCK]: {
             type: Number,
             default: 0,
         },
         [constantsKeys.KEY_TRANSACTION_ID]: {
+            type: String,
+            default: "",
+        },
+        [constantsKeys.KEY_VIDEO]: {
             type: String,
             default: "",
         },
