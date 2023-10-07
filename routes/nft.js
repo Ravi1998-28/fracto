@@ -4,7 +4,13 @@ const routerNft = express.Router();
 import { auth_user } from "../middlerware/jwt";
 import * as slugs from"../utils/slugs"
 import {nftDetails} from "../controllers/user/nft";
-import {SLUG_ADD_NFT_price, SLUG_GET_BANNER_NFT, SLUG_GET_LIST_NFT_PRICE, SLUG_ON_SALE} from "../utils/slugs";
+import {
+    SLUG_ADD_NFT_price,
+    SLUG_ENABLE_DISABLE_VISIBLITY,
+    SLUG_GET_BANNER_NFT,
+    SLUG_GET_LIST_NFT_PRICE,
+    SLUG_ON_SALE
+} from "../utils/slugs";
 import AWS from "aws-sdk";
 import multerS3 from "multer-s3";
 const multer = require('multer');
@@ -73,5 +79,6 @@ routerNft.post(slugs.SLUG_ADD_BANNER_NFT,nftCtrl.addBannerNft);
 routerNft.get(slugs.SLUG_GET_BANNER_NFT,nftCtrl.getBannerNft);
 routerNft.post(slugs.SLUG_ADD_NFT_price,nftCtrl.addNftPrice);
 routerNft.get(slugs.SLUG_GET_LIST_NFT_PRICE,nftCtrl.getListNftPrice);
+routerNft.post(slugs.SLUG_ENABLE_DISABLE_VISIBLITY,nftCtrl.enableDisableVisiblity);
 
 module.exports=routerNft;

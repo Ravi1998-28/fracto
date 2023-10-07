@@ -37,7 +37,6 @@ export let createNft = async (req, res) => {
             let array = req.files.nft_media?.forEach((el) => {
                 images.push(el.location);
             });
-            console.log("req.files.video[0] ", req.files.video[0].location);
             let nftData = {
                 [constantsKeys.KEY_USER_ID]: req.user._id,
                 [constantsKeys.KEY_CATEGORY_ID]: req.body.category_id,
@@ -783,6 +782,31 @@ export const getListNftPrice = async (req, res) => {
             success: true,
             data: nftPriceData,
         });
+
+    } catch (error) {
+        console.log("there are ", error);
+        return res.status(500).json({ success: false, message: "Server error" });
+    }
+};
+
+export const enableDisableVisiblity = async (req, res) => {
+    try {
+        const data =  await nft.findOneAndUpdate({_id:req.body.id},{ [constantsKeys.KEY_IS_VISIBLE]:
+                req.body[constantsKeys.KEY_IS_VISIBLE]});
+       if(data){
+           return res.status(200).json({
+               status: 200,
+               success: true,
+               message: 'updated successfully.',
+           });
+       }else{
+           return res.status(200).json({
+               status: 200,
+               success: false,
+               message: 'document not found.',
+           });
+       }
+
 
     } catch (error) {
         console.log("there are ", error);

@@ -147,6 +147,7 @@ export const SLUG_SEND_OTP = '/sendOtp'
 export const SLUG_VERIFY = '/verify'
 export const SLUG_ADD_NFT_price = '/addNftPrice'
 export const SLUG_GET_LIST_NFT_PRICE = '/getListNftPrice'
+export const SLUG_ENABLE_DISABLE_VISIBLITY = '/enableDisableVisibility'
 
 
 
