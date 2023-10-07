@@ -69,7 +69,7 @@ export let createNft = async (req, res) => {
                 [constantsKeys.KEY_AUCTION_DATE]:
                     req.body[constantsKeys.KEY_AUCTION_DATE],
                 [constantsKeys.KEY_VIDEO]:
-                req.files?.video[0] ? req.files.video[0].location ? '',
+                req.files?.video[0] ? req.files.video[0].location : ''
 
             };
 
