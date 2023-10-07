@@ -131,6 +131,10 @@ let tokenOwnerSchema = new Schema(
             type:Number,
             default:0,
         },
+        [constantsKeys.KEY_AUCTION_DATE]: {
+            type: Date,
+            default: Date.now
+        }
         // [constantsKeys.KEY_HASH_VALUE]:{
         //     type:String,
         //     default:"",

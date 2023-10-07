@@ -147,10 +147,6 @@ let nftSchema = new Schema(
             type: Number,
             default: 1   // 1 tue 0 false
         },
-        [constantsKeys.KEY_AUCTION_DATE]: {
-            type: Date,
-            default: Date.now
-        },
         [constantsKeys.KEY_IS_LOCK]: {
             type: Number,
             default: 0,
