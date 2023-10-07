@@ -257,13 +257,22 @@ export const blockAndUnblockUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
     try {
-        const data = await userModel.updateOne({_id:req.query.id},{ $set: { deleted: 1 }},);
-        if(data){
+        const is_admin = await userModel.findOne({_id:req.user._id});
+        if(is_admin.role == 'admin') {
+            const data = await userModel.updateOne({_id: req.query.id}, {$set: {deleted: 1}},);
+            if (data) {
+                return res.status(200).json({
+                    status: 200,
+                    success: true,
+                    message: "user deleted",
+                    data: data,
+                });
+            }
+        }else{
             return res.status(200).json({
                 status: 200,
-                success: true,
-                message: "user deleted",
-                data: data,
+                success: false,
+                message: "You are not authorized to delete user."
             });
         }
 
