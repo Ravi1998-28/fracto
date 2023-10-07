@@ -357,6 +357,9 @@ export const onSale = async (req, res) => {
 
 
         let where = [
+            {
+                $match: {"is_visible":1}
+            },
 
             {
                 $lookup: {
@@ -542,7 +545,7 @@ export let listCreatorAllNft = async (req, res) => {
         console.log("fff",req.user._id)
         const nftData = await  nft.aggregate([
             {
-            $match:{user_id:new ObjectId(req.user._id)}
+            $match:{user_id:new ObjectId(req.user._id), is_visible:1}
         },
             {
 
